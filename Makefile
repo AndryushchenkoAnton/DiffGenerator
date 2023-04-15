@@ -1,15 +1,15 @@
 install:
-       npm ci
+	npm ci
 
 link:
-     npm link
+	npm link
 
 difference:
-        node bin/gendiff.js -h
+	node bin/gendiff.js -h
 
 lint:
-     npx eslint .
+	npx eslint .
 
 fix:
-   npx eslint --fix .
+	npx eslint --fix .
 
