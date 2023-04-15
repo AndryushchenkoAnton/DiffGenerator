@@ -6,8 +6,6 @@ jobs:
     steps:
       - name: my-step
         run: echo "Hello World!"
-      - name: my-step2
-        run: make install
       - name: my-Lint
         run: make lint
       - name: my-Test 
