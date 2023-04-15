@@ -4,8 +4,7 @@ import * as fs from 'node:fs';
 const makeDiff = (pathToFile1, pathToFile2) => {
   const fileInfo1 = JSON.parse(fs.readFileSync(pathToFile1));
   const fileInfo2 = JSON.parse(fs.readFileSync(pathToFile2));
-  const newInfo = { ...fileInfo2, ...fileInfo1 };
-  const sortedKeys = Object.keys(newInfo).sort();
+  const sortedKeys = Object.keys({ ...fileInfo2, ...fileInfo1 }).sort();
 
   const resultArray = sortedKeys.map((key) => {
     if (Object.hasOwn(fileInfo1, key) && !Object.hasOwn(fileInfo2, key)) {
