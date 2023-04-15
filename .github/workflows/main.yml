@@ -1,15 +1,20 @@
-name: hello-world
-on: push
+name: eslint-test
+on: 
+  - push
+  
 jobs:
-  my-job:
+  build:
     runs-on: ubuntu-latest
+ 
     steps:
-      - name: my-step
-        run: echo "Hello World!"
-      - name: my-step2
-        run: make install
-      - name: my-Lint
-        run: make lint
-      - name: my-Test 
-        run: make test
-        
+      - uses: actions/checkout@v2
+      - name: Setup Node.js 
+        uses: actions/setup-node@v1
+        with:
+          node-version: '16.x'
+      - name: npm install
+        run: 
+          npm install
+      - name: Run eslint
+        run: 
+          make lint
