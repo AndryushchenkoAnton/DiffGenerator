@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for makeFlatDiff.js</title>
+    <title>Code coverage report for parsers.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="prettify.css" />
     <link rel="stylesheet" href="base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="index.html">All files</a> makeFlatDiff.js</h1>
+        <h1><a href="index.html">All files</a> parsers.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>18/18</span>
+                <span class='fraction'>11/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.85% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>13/14</span>
+                <span class='fraction'>3/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>18/18</span>
+                <span class='fraction'>11/11</span>
             </div>
         
             
@@ -89,61 +89,58 @@
 <a name='L24'></a><a href='#L24'>24</a>
 <a name='L25'></a><a href='#L25'>25</a>
 <a name='L26'></a><a href='#L26'>26</a>
-<a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L27'></a><a href='#L27'>27</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">17x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import makeParse from './parsers.js';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import yaml from 'js-yaml';
+import path from 'node:path';
+import * as fs from 'node:fs';
 &nbsp;
-const makeDiff = (pathToFile1, pathToFile2) =&gt; {
-  const fileInfo1 = makeParse(pathToFile1);
-  const fileInfo2 = makeParse(pathToFile2);
-  const sortedKeys = Object.keys({ ...fileInfo2, ...fileInfo1 }).sort();
+const makeParse = (pathToFile) =&gt; {
+  const format = path.extname(pathToFile);
+  const data = fs.readFileSync(pathToFile);
+  let parsedFileInfo;
+  switch (format) {
+    case '.json':
+      parsedFileInfo = JSON.parse(data);
+      break;
+    case '.yml':
+      parsedFileInfo = yaml.load(data);
+      break;
+    case '.yaml':
+      parsedFileInfo = yaml.load(data);
+      break;
 &nbsp;
-  const resultArray = sortedKeys.map((key) =&gt; {
-    if (Object.hasOwn(fileInfo1, key) &amp;&amp; !Object.hasOwn(fileInfo2, key)) {
-      return `  - ${key}: ${fileInfo1[key]}`;
-    } if (!Object.hasOwn(fileInfo1, key) &amp;&amp; Object.hasOwn(fileInfo2, key)) {
-      return `  + ${key}: ${fileInfo2[key]}`;
-    } <span class="missing-if-branch" title="else path not taken" >E</span>if (Object.hasOwn(fileInfo1, key) &amp;&amp; Object.hasOwn(fileInfo2, key)) {
-      if (fileInfo1[key] !== fileInfo2[key]) {
-        const first = `  - ${key}: ${fileInfo1[key]}`;
-        const second = `  + ${key}: ${fileInfo2[key]}`;
-        return [first, second].join('\n');
-      }
-    }
-    return `    ${key}: ${fileInfo1[key]}`;
-  });
-  resultArray.unshift('{');
-  resultArray.push('}');
-  return resultArray.join('\n');
+<span class="branch-3 cbranch-no" title="branch not covered" >    default:</span>
+  }
+&nbsp;
+  return parsedFileInfo;
 };
 &nbsp;
-export default makeDiff;
+export default makeParse;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->

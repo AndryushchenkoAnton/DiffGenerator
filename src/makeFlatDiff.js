@@ -1,9 +1,8 @@
-import * as fs from 'node:fs';
-// import _ from 'lodash';
+import makeParse from './parsers.js';
 
 const makeDiff = (pathToFile1, pathToFile2) => {
-  const fileInfo1 = JSON.parse(fs.readFileSync(pathToFile1));
-  const fileInfo2 = JSON.parse(fs.readFileSync(pathToFile2));
+  const fileInfo1 = makeParse(pathToFile1);
+  const fileInfo2 = makeParse(pathToFile2);
   const sortedKeys = Object.keys({ ...fileInfo2, ...fileInfo1 }).sort();
 
   const resultArray = sortedKeys.map((key) => {
