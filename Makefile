@@ -4,7 +4,7 @@ install:
 link:
      npm link
 
-gendiff:
+difference:
         node bin/gendiff.js -h
 
 lint:
