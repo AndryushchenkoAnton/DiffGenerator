@@ -5,3 +5,4 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/883c52e21d42b9fc209c/test_coverage)](https://codeclimate.com/github/AndryushchenkoAnton/frontend-project-46/test_coverage)
 [![asciicast](https://asciinema.org/a/GEGsqnzQIqtWqjwnd28kS2gFF.svg)](https://asciinema.org/a/GEGsqnzQIqtWqjwnd28kS2gFF)
 [![asciicast](https://asciinema.org/a/heRC6htmwWjFKyT57pEvsGOHS.svg)](https://asciinema.org/a/heRC6htmwWjFKyT57pEvsGOHS)
+[![asciicast](https://asciinema.org/a/hfdog6K3PfTtV6LdtDHVs2jJF.svg)](https://asciinema.org/a/hfdog6K3PfTtV6LdtDHVs2jJF)

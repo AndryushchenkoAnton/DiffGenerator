@@ -1,45 +1,92 @@
 import { fileURLToPath } from 'url';
 import path from 'path';
-import makeDiff from '../src/makeFlatDiff.js';
+import generateDifferenceTree from '../src/generateDifference.js';
+import makeParse from '../src/parsers.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+describe('output forms testing', () => {
+  const getFixturePath = (filename) => {
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = path.dirname(__filename);
+    return path.join(__dirname, '..', '__fixtures__', filename);
+  };
 
-const string = [
-  ['{'],
-  ['  - follow: false'],
-  ['    host: hexlet.io'],
-  ['  - proxy: 123.234.53.22'],
-  ['  - timeout: 50'],
-  ['  + timeout: 20'],
-  ['  + verbose: true'],
-  ['}'],
-];
-const string2 = [
-  ['{'],
-  ['    attitude: winner'],
-  ['  - bride: Samanta'],
-  ['  + bride: Erika'],
-  ['  + goal: to test function'],
-  ['  - name: file'],
-  ['  + name: anotherFile'],
-  ['  - position: none'],
-  ['  + position: geschiden'],
-  ['  - timeout: never'],
-  ['}'],
-];
+  const stylish = `{
+    common: {
+      + follow: false
+        setting1: Value 1
+      - setting2: 200
+      - setting3: true
+      + setting3: null
+      + setting4: blah blah
+      + setting5: {
+            key5: value5
+        }
+        setting6: {
+            doge: {
+              - wow: 
+              + wow: so much
+            }
+            key: value
+          + ops: vops
+        }
+    }
+    group1: {
+      - baz: bas
+      + baz: bars
+        foo: bar
+      - nest: {
+            key: value
+        }
+      + nest: str
+    }
+  - group2: {
+        abc: 12345
+        deep: {
+            id: 45
+        }
+    }
+  + group3: {
+        deep: {
+            id: {
+                number: 45
+            }
+        }
+        fee: 100500
+    }
+}`;
+  const object = {
+    common: {
+      setting1: 'Value 1',
+      setting2: 200,
+      setting3: true,
+      setting6: {
+        key: 'value',
+        doge: {
+          wow: '',
+        },
+      },
+    },
+    group1: {
+      baz: 'bas',
+      foo: 'bar',
+      nest: {
+        key: 'value',
+      },
+    },
+    group2: {
+      abc: 12345,
+      deep: {
+        id: 45,
+      },
+    },
+  };
 
-test('make difference JSON', () => {
-  const example = makeDiff(path.join(__dirname, '/__fixtures__/fileTest1.json'), path.join(__dirname, '/__fixtures__/fileTest2.json'));
-  expect(example).toEqual(string2.join('\n'));
-});
-
-test('make difference YML', () => {
-  const example = makeDiff(path.join(__dirname, '/__fixtures__/filepath1.yml'), path.join(__dirname, '/__fixtures__/filepath2.yml'));
-  expect(example).toEqual(string.join('\n'));
-});
-
-test('make difference YAML', () => {
-  const example = makeDiff(path.join(__dirname, '/__fixtures__/fileYaml1.yaml'), path.join(__dirname, '/__fixtures__/fileYaml2.yaml'));
-  expect(example).toEqual(string2.join('\n'));
+  test('make difference JSON', () => {
+    const example = generateDifferenceTree(getFixturePath('fileNest1.yaml'), getFixturePath('fileNest2.yaml'));
+    expect(example).toEqual(stylish);
+  });
+  test('parser', () => {
+    const parsedData = makeParse(getFixturePath('fileNestJson1.json'));
+    expect(parsedData).toEqual(object);
+  });
 });
