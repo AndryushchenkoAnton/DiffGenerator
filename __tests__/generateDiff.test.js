@@ -97,14 +97,14 @@ Property 'group3' was added with value: [complex value]`;
     const example = generateDifferenceTree(getFixturePath('fileNestJson1.json'), getFixturePath('fileNestJson2.json'));
     const example2 = generateDifferenceTree(getFixturePath('fileNest1.yaml'), getFixturePath('fileNestJson2.json'));
     expect(example).toEqual(stylish);
-    expect(example2).toEqual(stylish)
+    expect(example2).toEqual(stylish);
   });
 
   test('make difference  Stylish', () => {
     const example = generateDifferenceTree(getFixturePath('fileNest1.yaml'), getFixturePath('fileNest2.yaml'), 'stylish');
     const example2 = generateDifferenceTree(getFixturePath('fileNest1.yaml'), getFixturePath('fileNestJson2.json'), 'stylish');
     expect(example).toEqual(stylish);
-    expect(example2).toEqual(stylish)
+    expect(example2).toEqual(stylish);
   });
 
   test('make difference Plain', () => {
@@ -118,7 +118,7 @@ Property 'group3' was added with value: [complex value]`;
     const example = generateDifferenceTree(getFixturePath('fileNest1.yaml'), getFixturePath('fileNest2.yaml'), 'json');
     const example2 = generateDifferenceTree(getFixturePath('fileNest1.yaml'), getFixturePath('fileNestJson2.json'), 'json');
     expect(example).toEqual(json);
-    expect(example2).toEqual(json)
+    expect(example2).toEqual(json);
   });
 
   test('parser', () => {
