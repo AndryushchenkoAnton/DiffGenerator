@@ -38,6 +38,7 @@ const iterPlain = (valueOf, parents = []) => {
       return '';
   }
 };
+
 const plain = (difference) => makeModule(difference);
 
 export default plain;
