@@ -1,6 +1,6 @@
 import makeDifferance from './makeDiff.js';
 import makeParse from './parsers.js';
-import makeFormattedDiff from './formatters/index.js';
+import makeFormattedDiff from './formaters/index.js';
 
 const generateDifferenceTree = (pathToFile1, pathToFile2, style = 'stylish') => {
   const object1 = makeParse(pathToFile1);
