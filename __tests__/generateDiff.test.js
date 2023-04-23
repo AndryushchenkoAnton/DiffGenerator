@@ -101,21 +101,21 @@ Property 'group3' was added with value: [complex value]`;
   });
 
   test('make difference  Stylish', () => {
-    const example = generateDifferenceTree(getFixturePath('fileNest1.yaml'), getFixturePath('fileNest2.yml'), 'stylish');
+    const example = generateDifferenceTree(getFixturePath('fileNest1.yaml'), getFixturePath('file1.yml'), 'stylish');
     const example2 = generateDifferenceTree(getFixturePath('fileNest1.yaml'), getFixturePath('fileNestJson2.json'), 'stylish');
     expect(example).toEqual(stylish);
     expect(example2).toEqual(stylish);
   });
 
   test('make difference Plain', () => {
-    const example = generateDifferenceTree(getFixturePath('fileNest1.yaml'), getFixturePath('fileNest2.yml'), 'plain');
-    const example2 = generateDifferenceTree(getFixturePath('fileNestJson1.json'), getFixturePath('fileNest2.yml'), 'plain');
+    const example = generateDifferenceTree(getFixturePath('fileNest1.yaml'), getFixturePath('file1.yml'), 'plain');
+    const example2 = generateDifferenceTree(getFixturePath('fileNestJson1.json'), getFixturePath('file1.yml'), 'plain');
     expect(example).toEqual(plain);
     expect(example2).toEqual(plain);
   });
 
   test('make difference Json', () => {
-    const example = generateDifferenceTree(getFixturePath('fileNest1.yaml'), getFixturePath('fileNest2.yml'), 'json');
+    const example = generateDifferenceTree(getFixturePath('fileNest1.yaml'), getFixturePath('file1.yml'), 'json');
     const example2 = generateDifferenceTree(getFixturePath('fileNestJson1.json'), getFixturePath('fileNestJson2.json'), 'json');
     expect(example).toEqual(json);
     expect(example2).toEqual(json);
