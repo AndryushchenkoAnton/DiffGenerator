@@ -5,11 +5,11 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/883c52e21d42b9fc209c/test_coverage)](https://codeclimate.com/github/AndryushchenkoAnton/frontend-project-46/test_coverage)
 # Manual
 ## Setup:
-### Run 'make install'
+#### Run 'make install'
 ## To see information about the program:
-### Run 'gendiff -h' or 'gendiff --help'.
+#### Run 'gendiff -h' or 'gendiff --help'.
 ## Tests:
-### To run tests use 'make test'.
+#### To run tests use 'make test'.
 + Comparing plain files
 [![asciicast](https://asciinema.org/a/GEGsqnzQIqtWqjwnd28kS2gFF.svg)](https://asciinema.org/a/GEGsqnzQIqtWqjwnd28kS2gFF)
 + Comparing plain files with different path types
