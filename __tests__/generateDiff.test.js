@@ -93,19 +93,32 @@ Property 'group2' was removed
 Property 'group3' was added with value: [complex value]`;
   const json = '[{"key":"common","type":"children","value":[{"key":"follow","type":"added","value":false},{"key":"setting1","type":"unchanged","value":"Value 1"},{"key":"setting2","type":"deleted","value":200},{"key":"setting3","type":"changed","value1":true,"value2":null},{"key":"setting4","type":"added","value":"blah blah"},{"key":"setting5","type":"added","value":{"key5":"value5"}},{"key":"setting6","type":"children","value":[{"key":"doge","type":"children","value":[{"key":"wow","type":"changed","value1":"","value2":"so much"}]},{"key":"key","type":"unchanged","value":"value"},{"key":"ops","type":"added","value":"vops"}]}]},{"key":"group1","type":"children","value":[{"key":"baz","type":"changed","value1":"bas","value2":"bars"},{"key":"foo","type":"unchanged","value":"bar"},{"key":"nest","type":"changed","value1":{"key":"value"},"value2":"str"}]},{"key":"group2","type":"deleted","value":{"abc":12345,"deep":{"id":45}}},{"key":"group3","type":"added","value":{"deep":{"id":{"number":45}},"fee":100500}}]';
 
-  test('make difference  Stylish', () => {
-    const example = generateDifferenceTree(getFixturePath('fileNest1.yaml'), getFixturePath('fileNest2.yaml'));
+  test('make difference  default', () => {
+    const example = generateDifferenceTree(getFixturePath('fileNestJson1.json'), getFixturePath('fileNestJson2.json'));
+    const example2 = generateDifferenceTree(getFixturePath('fileNest1.yaml'), getFixturePath('fileNestJson2.json'));
     expect(example).toEqual(stylish);
+    expect(example2).toEqual(stylish)
+  });
+
+  test('make difference  Stylish', () => {
+    const example = generateDifferenceTree(getFixturePath('fileNest1.yaml'), getFixturePath('fileNest2.yaml'), 'stylish');
+    const example2 = generateDifferenceTree(getFixturePath('fileNest1.yaml'), getFixturePath('fileNestJson2.json'), 'stylish');
+    expect(example).toEqual(stylish);
+    expect(example2).toEqual(stylish)
   });
 
   test('make difference Plain', () => {
     const example = generateDifferenceTree(getFixturePath('fileNest1.yaml'), getFixturePath('fileNest2.yaml'), 'plain');
+    const example2 = generateDifferenceTree(getFixturePath('fileNestJson1.json'), getFixturePath('fileNest2.yaml'), 'plain');
     expect(example).toEqual(plain);
+    expect(example2).toEqual(plain);
   });
 
   test('make difference Json', () => {
     const example = generateDifferenceTree(getFixturePath('fileNest1.yaml'), getFixturePath('fileNest2.yaml'), 'json');
+    const example2 = generateDifferenceTree(getFixturePath('fileNest1.yaml'), getFixturePath('fileNestJson2.json'), 'json');
     expect(example).toEqual(json);
+    expect(example2).toEqual(json)
   });
 
   test('parser', () => {
