@@ -22,24 +22,21 @@ const iterPlain = (valueOf, parents = []) => {
   const [original, changed] = getChangedValues(valueOf);
   const type = getType(valueOf);
   const way = [...parents, key].join('.');
-  let string;
+
   switch (type) {
     case 'children':
-      string = makeModule(value, [...parents, key]);
-      break;
+      return makeModule(value, [...parents, key]);
     case 'added':
-      string = `Property '${way}' was added with value: ${makeFormattedValue(value)}`;
-      break;
+      return `Property '${way}' was added with value: ${makeFormattedValue(value)}`;
     case 'deleted':
-      string = `Property '${way}' was removed`;
-      break;
+      return `Property '${way}' was removed`;
+
     case 'changed':
-      string = `Property '${way}' was updated. From ${makeFormattedValue(original)} to ${makeFormattedValue(changed)}`;
-      break;
+      return `Property '${way}' was updated. From ${makeFormattedValue(original)} to ${makeFormattedValue(changed)}`;
+
     default:
-      string = '';
+      return '';
   }
-  return string;
 };
 const plain = (difference) => makeModule(difference);
 
