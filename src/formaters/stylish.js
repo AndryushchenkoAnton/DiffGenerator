@@ -3,6 +3,8 @@ import {
   getType, getKey, getValue, getChangedValues,
 } from '../methods.js';
 
+const makeSpace = (spaceSymbol, count = 2) => spaceSymbol.repeat(count);
+
 const makeModule = (array, depth) => {
   const final = array.map((el) => iter(el, depth));
   final.unshift('{');
@@ -51,7 +53,6 @@ const iter = (valueOf, count) => {
   }
   return null;
 };
-const makeSpace = (spaceSymbol, count = 2) => spaceSymbol.repeat(count);
 
 const stylish = (differences) => makeModule(differences, 2);
 

@@ -1,21 +1,17 @@
 import _ from 'lodash';
 import {
-  getType, getKey, getValue, getChangedValues,
+  getChangedValues, getKey, getType, getValue,
 } from '../methods.js';
 
-const makeModule = (array, parents = []) => {
-  const final = array.filter((el) => getType(el) !== 'unchanged').map((el) => iterPlain(el, [...parents]));
-  return final.join('\n');
-};
 const makeFormattedValue = (value) => {
-  let res = value;
   if (_.isObject(value)) {
-    res = '[complex value]';
-  } else if (_.isString(value)) {
-    res = `'${value}'`;
+    return '[complex value]';
+  } if (_.isString(value)) {
+    return `'${value}'`;
   }
-  return res;
+  return value;
 };
+
 const iterPlain = (valueOf, parents = []) => {
   const key = getKey(valueOf);
   const value = getValue(valueOf);
@@ -39,6 +35,7 @@ const iterPlain = (valueOf, parents = []) => {
   }
 };
 
-const plain = (difference) => makeModule(difference);
+const makeModule = (array, parents = []) => array.filter((el) => getType(el) !== 'unchanged').map((el) => iterPlain(el, [...parents])).join('\n');
 
+const plain = (difference) => makeModule(difference);
 export default plain;

@@ -5,22 +5,17 @@ import * as fs from 'node:fs';
 const makeParse = (pathToFile) => {
   const format = path.extname(pathToFile);
   const data = fs.readFileSync(pathToFile);
-  let parsedFileInfo;
   switch (format) {
     case '.json':
-      parsedFileInfo = JSON.parse(data);
-      break;
+      return JSON.parse(data);
     case '.yml':
-      parsedFileInfo = yaml.load(data);
-      break;
+      return yaml.load(data);
     case '.yaml':
-      parsedFileInfo = yaml.load(data);
-      break;
+      return yaml.load(data);
 
     default:
   }
-
-  return parsedFileInfo;
+  return '';
 };
 
 export default makeParse;
