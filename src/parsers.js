@@ -10,9 +10,9 @@ const makeParse = (pathToFile) => {
     case '.json':
       parsedFileInfo = JSON.parse(data);
       break;
-       case '.yml':
-         parsedFileInfo = yaml.load(data);
-         break;
+    case '.yml':
+      parsedFileInfo = yaml.load(data);
+      break;
     case '.yaml':
       parsedFileInfo = yaml.load(data);
       break;
