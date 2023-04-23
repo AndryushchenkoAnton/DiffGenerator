@@ -10,8 +10,6 @@
 ### Run 'gendiff -h' or 'gendiff --help'.
 ## Tests:
 ### To run tests use 'make test'.
-#
-#
 + Comparing plain files
 [![asciicast](https://asciinema.org/a/GEGsqnzQIqtWqjwnd28kS2gFF.svg)](https://asciinema.org/a/GEGsqnzQIqtWqjwnd28kS2gFF)
 + Comparing plain files with different path types
