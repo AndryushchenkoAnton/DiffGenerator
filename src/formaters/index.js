@@ -2,12 +2,17 @@ import stylish from './stylish.js';
 import plain from './plain.js';
 import json from './json.js';
 
-const index = {
-  stylish,
-  plain,
-  json,
+const makeFormattedDiff = (difference, formatStyle) => {
+  switch (formatStyle.toLowerCase()) {
+    case 'stylish':
+      return stylish(difference);
+    case 'plain':
+      return plain(difference);
+    case 'json':
+      return json(difference);
+    default:
+  }
+  return null;
 };
-
-const makeFormattedDiff = (difference, formatStyle) => index[formatStyle](difference);
 
 export default makeFormattedDiff;

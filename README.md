@@ -4,6 +4,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/883c52e21d42b9fc209c/maintainability)](https://codeclimate.com/github/AndryushchenkoAnton/frontend-project-46/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/883c52e21d42b9fc209c/test_coverage)](https://codeclimate.com/github/AndryushchenkoAnton/frontend-project-46/test_coverage)
 # Manual
+## Clone repository
 ## Setup:
 #### Run 'make install'
 ## To see information about the program:

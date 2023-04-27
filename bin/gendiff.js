@@ -1,8 +1,7 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
-import makePath from '../src/makePath.js';
-import generateDifference from '../src/generateDifference.js';
+import gendiff from '../src/index.js';
 
 const program = new Command();
 
@@ -13,7 +12,7 @@ program
   .option('-f, --format <type>', 'output format', 'stylish')
   .arguments('<filepath1> <filepath2>')
   .action((filepath1, filepath2, option) => {
-    console.log(generateDifference(makePath(filepath1), makePath(filepath2), option.format));
+    console.log(gendiff(filepath1, filepath2, option.format));
   });
 
 program.parse();
