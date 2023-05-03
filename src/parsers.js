@@ -9,9 +9,8 @@ const makeParse = (data, extname) => {
     case '.yaml':
       return yaml.load(data);
 
-    default:
+    default: throw new Error(`Extension ${extname} - is incorrect!`);
   }
-  return data;
 };
 
 export default makeParse;
