@@ -5,57 +5,51 @@ import {
 
 const makeSpace = (spaceSymbol, count = 2) => spaceSymbol.repeat(count);
 
-const makeModule = (array, depth) => {
-  const iter = (valueOf, count) => {
-    const makeLine = (valueString, counter) => {
-      if (!_.isObject(valueString)) {
-        return valueString;
+const makeDifferenceOfChildren = (array, depth) => {
+  const iter = (node, currentDepth) => {
+    if (!_.isObject(node) || !Object.hasOwn(node, 'type')) {
+      if (!_.isObject(node)) {
+        return node;
       }
       const res = Object
-        .entries(valueString)
-        .map(([key, val]) => `${makeSpace(' ', counter * 2)}${key}: ${iter(val, counter + 2)}`);
+        .entries(node)
+        .map(([key, val]) => `${makeSpace(' ', currentDepth * 2)}${key}: ${iter(val, currentDepth + 2)}`);
       return [
         '{',
         res.join('\n'),
-        `${makeSpace(' ', counter * 2 - 4)}}`,
+        `${makeSpace(' ', currentDepth * 2 - 4)}}`,
       ].join('\n');
-    };
-
-    if (!_.isObject(valueOf) || !Object.hasOwn(valueOf, 'type')) {
-      return makeLine(valueOf, count);
     }
-    const type = getType(valueOf);
-    const key = getKey(valueOf);
 
+    const type = getType(node);
+    const key = getKey(node);
     if (type === 'children') {
-      const value = getValue(valueOf);
-      return `${makeSpace(' ', count * 2 - 2)}  ${key}: ${makeModule(value, count + 2)}`;
+      const valueOfNode = getValue(node);
+      return `${makeSpace(' ', currentDepth * 2 - 2)}  ${key}: ${makeDifferenceOfChildren(valueOfNode, currentDepth + 2)}`;
     }
     if (type === 'unchanged') {
-      const value = getValue(valueOf);
-      return `${makeSpace(' ', count * 2)}${key}: ${iter(value, count + 2)}`;
+      const valueOfNode = getValue(node);
+      return `${makeSpace(' ', currentDepth * 2)}${key}: ${iter(valueOfNode, currentDepth + 2)}`;
     }
     if (type === 'changed') {
-      const [original, change] = getChangedValues(valueOf);
-      const first = `${makeSpace(' ', count * 2 - 2)}- ${key}: ${iter(original, count + 2)}`;
-      const second = `${makeSpace(' ', count * 2 - 2)}+ ${key}: ${iter(change, count + 2)}`;
+      const [original, change] = getChangedValues(node);
+      const first = `${makeSpace(' ', currentDepth * 2 - 2)}- ${key}: ${iter(original, currentDepth + 2)}`;
+      const second = `${makeSpace(' ', currentDepth * 2 - 2)}+ ${key}: ${iter(change, currentDepth + 2)}`;
       return [first, second].join('\n');
     } if (type === 'added') {
-      const value = getValue(valueOf);
-      return `${makeSpace(' ', count * 2 - 2)}+ ${key}: ${iter(value, count + 2)}`;
+      const valueOfNode = getValue(node);
+      return `${makeSpace(' ', currentDepth * 2 - 2)}+ ${key}: ${iter(valueOfNode, currentDepth + 2)}`;
     } if (type === 'deleted') {
-      const value = getValue(valueOf);
-      return `${makeSpace(' ', count * 2 - 2)}- ${key}: ${iter(value, count + 2)}`;
+      const valueOfNode = getValue(node);
+      return `${makeSpace(' ', currentDepth * 2 - 2)}- ${key}: ${iter(valueOfNode, currentDepth + 2)}`;
     }
     return null;
   };
-
   const final = array.map((el) => iter(el, depth));
   const res = ['{', ...final, `${makeSpace(' ', depth * 2 - 4)}}`];
-
   return res.join('\n');
 };
 
-const stylish = (differences) => makeModule(differences, 2);
+const stylish = (differences) => makeDifferenceOfChildren(differences, 2);
 
 export default stylish;

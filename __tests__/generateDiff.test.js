@@ -14,32 +14,17 @@ describe('output forms testing', () => {
     const __dirname = path.dirname(__filename);
     return path.join(__dirname, '..', '__fixtures__', filename);
   };
-  test('make difference default', () => {
-    const example = gendiff(getFixturePath('file1.json'), getFixturePath('file2.json'));
-    const example2 = gendiff(getFixturePath('file1.yaml'), getFixturePath('file2.json'));
-    expect(example).toEqual(stylish);
-    expect(example2).toEqual(stylish);
-  });
 
-  test('make difference Stylish', () => {
-    const example = gendiff(getFixturePath('file1.yaml'), getFixturePath('file2.yml'), 'stylish');
-    const example2 = gendiff(getFixturePath('file1.yaml'), getFixturePath('file2.json'), 'stylish');
-    expect(example).toEqual(stylish);
-    expect(example2).toEqual(stylish);
-  });
+  const extensions = ['yml', 'json'];
 
-  test('make difference Plain', () => {
-    const example = gendiff(getFixturePath('file1.yaml'), getFixturePath('file2.yml'), 'plain');
-    const example2 = gendiff(getFixturePath('file1.json'), getFixturePath('file2.yml'), 'plain');
-    expect(example).toEqual(plain);
-    expect(example2).toEqual(plain);
-  });
+  test.each(extensions)('tests with different extensions', (ext) => {
+    const fileBefore = getFixturePath(`file1.${ext}`);
+    const fileAfter = getFixturePath(`file2.${ext}`);
 
-  test('make difference Json', () => {
-    const example = gendiff(getFixturePath('file1.yaml'), getFixturePath('file2.yml'), 'json');
-    const example2 = gendiff(getFixturePath('file1.json'), getFixturePath('file2.json'), 'json');
-    expect(example).toEqual(json);
-    expect(example2).toEqual(json);
+    expect(gendiff(fileBefore, fileAfter)).toEqual(stylish);
+    expect(gendiff(fileBefore, fileAfter, 'stylish')).toEqual(stylish);
+    expect(gendiff(fileBefore, fileAfter, 'plain')).toEqual(plain);
+    expect(gendiff(fileBefore, fileAfter, 'json')).toEqual(json);
   });
 
   test('parser', () => {

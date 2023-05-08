@@ -2,7 +2,7 @@ import path from 'node:path';
 import * as fs from 'node:fs';
 import makePath from './makePath.js';
 import makeParse from './parsers.js';
-import makeDifferance from './makeDiff.js';
+import makeDifference from './makeDiff.js';
 import makeFormattedDiff from './formaters/index.js';
 
 const gendiff = (filepath1, filepath2, format = 'stylish') => {
@@ -18,7 +18,7 @@ const gendiff = (filepath1, filepath2, format = 'stylish') => {
   const data1 = makeParse(dataOfFirst, extnameOfFirst);
   const data2 = makeParse(dataOfSecond, extnameOfSecond);
 
-  const diffTree = makeDifferance(data1, data2);
+  const diffTree = makeDifference(data1, data2);
 
   return makeFormattedDiff(diffTree, format);
 };
