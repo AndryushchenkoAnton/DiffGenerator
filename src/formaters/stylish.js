@@ -4,6 +4,15 @@ import {
 } from '../methods.js';
 
 const makeSpace = (spaceSymbol, count = 2) => spaceSymbol.repeat(count);
+const makeLine = (value, counter) => {
+  if (!_.isObject(value)) {
+    return value;
+  }
+  const res = Object
+    .entries(value)
+    .map(([key, val]) => `${makeSpace(' ', counter * 2)}${key}: ${makeLine(val, counter + 2)}`);
+  return ['{', res.join('\n'), `${makeSpace(' ', counter * 2 - 4)}}`].join('\n');
+};
 
 const stylish = (differences, spaceCount = 2) => {
   const iter = (node, depth) => {
@@ -23,11 +32,7 @@ const stylish = (differences, spaceCount = 2) => {
     } if (getType(node) === 'deleted') {
       return `${makeSpace(' ', depth * 2 - 2)}- ${getKey(node)}: ${iter(getValue(node), depth + 2)}`;
     }
-    if (!_.isObject(node)) {
-      return node;
-    }
-    const res = Object.entries(node).map(([key, val]) => `${makeSpace(' ', depth * 2)}${key}: ${iter(val, depth + 2)}`);
-    return ['{', res.join('\n'), `${makeSpace(' ', depth * 2 - 4)}}`].join('\n');
+    return makeLine(node, depth);
   };
   return ['{', ...differences.map((el) => iter(el, spaceCount)), `${makeSpace(' ', spaceCount * 2 - 4)}}`].join('\n');
 };
