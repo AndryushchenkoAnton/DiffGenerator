@@ -5,7 +5,7 @@ import {
 
 const makeSpace = (spaceSymbol, count = 2) => spaceSymbol.repeat(count);
 
-const stylish = (differences, space = 2) => {
+const stylish = (differences, spaceCount = 2) => {
   const iter = (node, depth) => {
     if (getType(node) === 'children') {
       return `${makeSpace(' ', depth * 2 - 2)}  ${getKey(node)}: ${stylish(getValue(node), depth + 2)}`;
@@ -29,7 +29,7 @@ const stylish = (differences, space = 2) => {
     const res = Object.entries(node).map(([key, val]) => `${makeSpace(' ', depth * 2)}${key}: ${iter(val, depth + 2)}`);
     return ['{', res.join('\n'), `${makeSpace(' ', depth * 2 - 4)}}`].join('\n');
   };
-  return ['{', ...differences.map((el) => iter(el, space)), `${makeSpace(' ', space * 2 - 4)}}`].join('\n');
+  return ['{', ...differences.map((el) => iter(el, spaceCount)), `${makeSpace(' ', spaceCount * 2 - 4)}}`].join('\n');
 };
 
 export default stylish;
